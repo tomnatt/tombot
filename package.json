@@ -15,6 +15,6 @@
   "homepage": "https://github.com/tomnatt/tombot#readme",
   "private": true,
   "dependencies": {
-    "slackbots": "^0.5.1"
+    "slackbots": "git+https://github.com/mishk0/slack-bot-api.git#b60ee270ef9b6ab225600d4b5ebe94c6559df02e"
   }
 }
