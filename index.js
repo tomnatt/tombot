@@ -23,7 +23,6 @@ bot.on('message', function(message) {
 
   if (messageForMe(bot.self.id, message)) {
 
-      // check it's a direct message - direct message channels start with 'D'
       if (directMessage(message)) {
 
         // get the user and respond
