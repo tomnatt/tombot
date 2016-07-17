@@ -1,7 +1,8 @@
 var Bot = require('slackbots');
 var utils = require('./lib/utils.js');
-var messageForMe = utils.messageForMe;
+var incomingMessage = utils.incomingMessage;
 var directMessage = utils.directMessage;
+var channelMessageForMe = utils.channelMessageForMe;
 
 // create a bot
 var settings = {
@@ -21,22 +22,25 @@ bot.on('start', function() {
 // will receive all messages in a subscribed channel
 bot.on('message', function(message) {
 
-  if (messageForMe(bot.self.id, message)) {
+  if (incomingMessage(bot.self.id, message)) {
 
-      if (directMessage(message)) {
+    if (directMessage(message)) {
 
-        // get the user and respond
-        bot.getUserById(message.user).then(function(user) {
-          bot.postMessageToUser(user.name, 'Direct response: ' + message.text, params);
-        });
+      // get the user and respond
+      bot.getUserById(message.user).then(function(user) {
+        bot.postMessageToUser(user.name, 'Direct response: ' + message.text, params);
+      });
 
-      } else {
-        // get the channel and respond
-        bot.getChannelById(message.channel).then(function(channel) {
-          bot.postMessageToChannel(channel.name, "Channel response: " + message.text, params);
-        });
+    } else if (channelMessageForMe(bot.self.id, message)) {
 
-      }
+      // get the channel and respond
+      bot.getChannelById(message.channel).then(function(channel) {
+        bot.postMessageToChannel(channel.name, "Channel response: " + message.text, params);
+      });
+
+    }
+
+    // else ignore message
 
   }
 
