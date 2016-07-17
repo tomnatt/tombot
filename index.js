@@ -1,6 +1,6 @@
 var Bot = require('slackbots');
 var utils = require('./lib/utils.js');
-var _messageForMe = utils._messageForMe;
+var messageForMe = utils.messageForMe;
 
 // create a bot
 var settings = {
@@ -20,7 +20,7 @@ bot.on('start', function() {
 // will receive all messages in a subscribed channel
 bot.on('message', function(message) {
 
-  if (_messageForMe(bot.self.id, message)) {
+  if (messageForMe(bot.self.id, message)) {
 
       // check it's a direct message - direct message channels start with 'D'
       if (typeof message.channel === 'string' && message.channel[0] === 'D') {
