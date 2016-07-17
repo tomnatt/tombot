@@ -1,6 +1,7 @@
 var Bot = require('slackbots');
 var utils = require('./lib/utils.js');
 var messageForMe = utils.messageForMe;
+var directMessage = utils.directMessage;
 
 // create a bot
 var settings = {
@@ -23,7 +24,8 @@ bot.on('message', function(message) {
   if (messageForMe(bot.self.id, message)) {
 
       // check it's a direct message - direct message channels start with 'D'
-      if (typeof message.channel === 'string' && message.channel[0] === 'D') {
+      if (directMessage(message)) {
+
         // get the user and respond
         bot.getUserById(message.user).then(function(user) {
           bot.postMessageToUser(user.name, 'Direct response: ' + message.text, params);
