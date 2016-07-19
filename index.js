@@ -16,21 +16,21 @@ var params = {
 
 var bot = new Bot(settings);
 
-bot.on('start', function() {
+bot.on('start', () => {
   bot.postMessageToUser('tomnatt', 'hello bro!', params);
 });
 
 // will receive all messages in a subscribed channel
-bot.on('message', function(message) {
+bot.on('message', (message) => {
 
   if (incomingMessage(bot.self.id, message)) {
 
     if (directMessage(message)) {
 
       // TODO: maybe use a promise here?
-      createResponse(message, function(response) {
+      createResponse(message, (response) => {
         // get the user and respond
-        bot.getUserById(message.user).then(function(user) {
+        bot.getUserById(message.user).then((user) => {
           bot.postMessageToUser(user.name, response, params);
         });
       });
@@ -38,9 +38,9 @@ bot.on('message', function(message) {
     } else if (channelMessageForMe(bot.self.id, message)) {
 
       // TODO: maybe use a promise here?
-      createResponse(message, function(response) {
+      createResponse(message, (response) => {
         // get the channel and respond
-        bot.getChannelById(message.channel).then(function(channel) {
+        bot.getChannelById(message.channel).then((channel) => {
           bot.postMessageToChannel(channel.name, response, params);
         });
       });
