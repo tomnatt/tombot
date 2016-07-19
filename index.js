@@ -3,8 +3,7 @@ var utils = require('./lib/utils.js');
 var incomingMessage = utils.incomingMessage;
 var directMessage = utils.directMessage;
 var channelMessageForMe = utils.channelMessageForMe;
-var createDirectResponse = utils.createDirectResponse;
-var createChannelResponse = utils.createChannelResponse;
+var createResponse = utils.createResponse;
 
 // create a bot
 var settings = {
@@ -28,20 +27,22 @@ bot.on('message', function(message) {
 
     if (directMessage(message)) {
 
-      var response = createDirectResponse(message);
-
-      // get the user and respond
-      bot.getUserById(message.user).then(function(user) {
-        bot.postMessageToUser(user.name, response, params);
+      // TODO: maybe use a promise here?
+      createResponse(message, function(response) {
+        // get the user and respond
+        bot.getUserById(message.user).then(function(user) {
+          bot.postMessageToUser(user.name, response, params);
+        });
       });
 
     } else if (channelMessageForMe(bot.self.id, message)) {
 
-      var response = createChannelResponse(message);
-
-      // get the channel and respond
-      bot.getChannelById(message.channel).then(function(channel) {
-        bot.postMessageToChannel(channel.name, response, params);
+      // TODO: maybe use a promise here?
+      createResponse(message, function(response) {
+        // get the channel and respond
+        bot.getChannelById(message.channel).then(function(channel) {
+          bot.postMessageToChannel(channel.name, response, params);
+        });
       });
 
     }
