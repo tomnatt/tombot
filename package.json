@@ -16,6 +16,7 @@
   "homepage": "https://github.com/tomnatt/tombot#readme",
   "private": true,
   "dependencies": {
+    "cleverbot-node": "^0.2.2",
     "slackbots": "git+https://github.com/mishk0/slack-bot-api.git#b60ee270ef9b6ab225600d4b5ebe94c6559df02e"
   }
 }
